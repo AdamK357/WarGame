@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bsmryw41btlf5"]
+
+[ext_resource type="Script" uid="uid://deeba8p0iqfaw" path="res://scenes/units/unit_collision_particles.gd" id="1_fxagn"]
+
+[node name="UnitCollisionParticles" type="CPUParticles2D" unique_id=1781713302]
+emitting = false
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 55.56
+initial_velocity_max = 148.15
+script = ExtResource("1_fxagn")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

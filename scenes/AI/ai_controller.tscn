@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://db25yyl5ojwat"]
+
+[ext_resource type="Script" uid="uid://db0gkgssc7p55" path="res://scenes/AI/ai_controller.gd" id="1_egwrd"]
+
+[node name="AIController" type="Node" unique_id=1014650937]
+script = ExtResource("1_egwrd")
+
+[node name="ActionTimer" type="Timer" parent="." unique_id=1858572824]
+autostart = true
+
+[connection signal="timeout" from="ActionTimer" to="." method="_on_action_timer_timeout"]

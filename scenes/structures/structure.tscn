@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b2o5dqye48dnl"]
+
+[ext_resource type="Script" uid="uid://do4hjlo2lnmoo" path="res://scenes/structures/structure.gd" id="1_w8v5r"]
+[ext_resource type="Texture2D" uid="uid://b30n1mhge8dpe" path="res://assets/structures/orb_structure.png" id="2_w8v5r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w8v5r"]
+radius = 89.106674
+
+[sub_resource type="Animation" id="Animation_w8v5r"]
+resource_name = "hit"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mub01"]
+_data = {
+&"hit": SubResource("Animation_w8v5r")
+}
+
+[node name="Structure" type="Node2D" unique_id=1956645682 groups=["Structures"]]
+script = ExtResource("1_w8v5r")
+
+[node name="SpriteContainer" type="Node2D" parent="." unique_id=132514015]
+
+[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" unique_id=2014797076]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_w8v5r")
+
+[node name="PopulationLabel" type="Label" parent="." unique_id=816666122]
+offset_left = -23.0
+offset_top = -41.0
+offset_right = 25.0
+offset_bottom = -18.0
+text = "Pop: 0"
+
+[node name="GrowthTimer" type="Timer" parent="." unique_id=781753778]
+autostart = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=780851337]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2049597668]
+shape = SubResource("CircleShape2D_w8v5r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1153623143]
+libraries/ = SubResource("AnimationLibrary_mub01")
+
+[connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
