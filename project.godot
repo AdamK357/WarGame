@@ -12,13 +12,14 @@ config_version=5
 
 config/name="war game"
 run/main_scene="uid://bvktsxiu81e7g"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Globals="*uid://dn5mt275m3mhf"
 GameManager="*uid://cjjt445ln2qgu"
+MultiplayerManager="*uid://b7up2hlbl4yw8"
 
 [display]
 

@@ -6,6 +6,11 @@ var selected_target_structure: Structure = null
 var unit_container: Node2D
 var particle_container: Node2D
 
+# Keeps track of whether the player is sending a percentage of their units or a fixed amount, and what those values are.
+var player_sending_percentage: bool = true
+var player_percent_to_send: float = 0.5
+var player_amount_to_send: float
+
 func select_source_structure(structure: Structure) -> void:
 	selected_source_structure = structure
 	Globals.send_note("Selected source structure: " + str(selected_source_structure))

@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://c3xdjiygurxp4"]
+
+[ext_resource type="FontFile" uid="uid://6faql4s0k1wf" path="res://assets/graphics/fonts/super-hockey/Super-Hockey-Exfont226d.ttf" id="1_dimet"]
+
+[resource]
+font = ExtResource("1_dimet")
+font_size = 85
+font_color = Color(0, 0, 0, 1)

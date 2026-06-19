@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://pqo5iay25fe"]
 
 [ext_resource type="Script" uid="uid://ky8235ybe1fy" path="res://scenes/units/unit.gd" id="1_qgilm"]
-[ext_resource type="Texture2D" uid="uid://bumeknt52qypr" path="res://assets/units/monolith_unit.png" id="2_6e3tn"]
-[ext_resource type="Texture2D" uid="uid://2fssa2v78itx" path="res://assets/units/twinkle_glow_unit.png" id="2_cx6aj"]
+[ext_resource type="Texture2D" uid="uid://bumeknt52qypr" path="res://assets/graphics/units/monolith_unit.png" id="2_6e3tn"]
+[ext_resource type="Texture2D" uid="uid://2fssa2v78itx" path="res://assets/graphics/units/twinkle_glow_unit.png" id="2_cx6aj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cx6aj"]
 radius = 24.0
@@ -74,11 +74,12 @@ script = ExtResource("1_qgilm")
 
 [node name="SpriteContainer" type="Node2D" parent="." unique_id=1744830038]
 
-[node name="Sprite2D2" type="Sprite2D" parent="SpriteContainer" unique_id=873937532]
+[node name="Sprite2D1" type="Sprite2D" parent="SpriteContainer" unique_id=873937532]
+visible = false
 scale = Vector2(0.34, 0.34)
 texture = ExtResource("2_cx6aj")
 
-[node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" unique_id=1567042400]
+[node name="Sprite2D2" type="Sprite2D" parent="SpriteContainer" unique_id=1567042400]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_6e3tn")
 
@@ -87,7 +88,6 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=375371407]
-visible = false
 shape = SubResource("CircleShape2D_cx6aj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=18455418]

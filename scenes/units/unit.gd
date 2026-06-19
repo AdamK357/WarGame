@@ -4,12 +4,9 @@ class_name Unit
 @export var speed: float = 120.0
 @onready var unit_collision_particles = preload("res://scenes/units/unit_collision_particles.tscn")
 @onready var sprite2d = $SpriteContainer/Sprite2D2
-var faction
+var _team: int
 var target_structure
 var target_position
-
-func _ready():
-	_update_texture()
 
 func _physics_process(delta):
 	if target_structure == null:
@@ -24,30 +21,32 @@ func _physics_process(delta):
 		hit_structure()
 
 func _update_texture() -> void:
-	match faction:
-		Globals.Faction.NEUTRAL:
-			sprite2d.modulate = Color.GRAY
-		Globals.Faction.PLAYER:
-			sprite2d.modulate = Color.GREEN
-		Globals.Faction.AI1:
-			sprite2d.modulate = Color.YELLOW
-		Globals.Faction.AI2:
-			sprite2d.modulate = Color.RED
+	if sprite2d == null:
+		await ready
+	sprite2d.modulate = Globals.get_team_color(_team)
 
 func hit_structure():
-	if target_structure.faction == faction: # If same faction
+	if target_structure.get_team() == _team: # If same faction
 		target_structure.population += 1
 	else: # If different faction
 		target_structure.population -= 1
+		target_structure.anim_player.play("hit")
 		if target_structure.population <= 0:
-			target_structure.set_faction(faction)
+			target_structure.set_team(_team)
 	queue_free()
 
+func set_team(team: int) -> void:
+	_team = team
+	_update_texture()
+
+
+func get_team() -> int:
+	return _team
 
 
 func _on_area_2d_area_entered(area):
 	var object = area.get_parent()
-	if object is Unit and object.faction != faction:
+	if object is Unit and object.get_team() != _team:
 		object.die()
 
 func die():
@@ -56,13 +55,15 @@ func die():
 	GameManager.particle_container.add_child(effect)
 	queue_free()
 
-func set_target_structure(target):
+func set_target_structure(target: Structure) -> void:
 	target_structure = target
-	
+	target_position = generate_target_position(target)
+
+func generate_target_position(target: Structure) -> Vector2:
 	var min_radius := 25.0
 	var max_radius := 75.0
 	var distance := randf_range(min_radius, max_radius)
 	
 	var offset := Vector2.from_angle(randf() * TAU) * distance
 	
-	target_position = target.global_position + offset
+	return target.global_position + offset

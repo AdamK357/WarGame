@@ -1,7 +1,7 @@
 extends Node
 class_name AIController
 
-@export var faction: Globals.Faction = Globals.Faction.AI1
+@export var _team: int = 2
 @onready var action_timer: Timer = $ActionTimer
 
 # Personality Parameters
@@ -20,15 +20,15 @@ func _ready() -> void:
 
 func _get_my_structures() -> Array[Node]:
 	var all_structures = get_tree().get_nodes_in_group("Structures")
-	return all_structures.filter(func(s): return s.faction == faction)
+	return all_structures.filter(func(s): return s.get_team() == _team)
 
 func _get_neutral_structures() -> Array[Node]:
 	var all_structures = get_tree().get_nodes_in_group("Structures")
-	return all_structures.filter(func(s): return s.faction == Globals.Faction.NEUTRAL)
+	return all_structures.filter(func(s): return s.get_team() == 0)
 
 func _get_enemy_structures() -> Array[Node]:
 	var all_structures = get_tree().get_nodes_in_group("Structures")
-	return all_structures.filter(func(s): return s.faction != faction and s.faction != Globals.Faction.NEUTRAL)
+	return all_structures.filter(func(s): return s.get_team() != _team and s.get_team() != 0)
 
 
 

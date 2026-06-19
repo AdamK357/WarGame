@@ -1,16 +1,46 @@
 [gd_scene format=3 uid="uid://b2o5dqye48dnl"]
 
 [ext_resource type="Script" uid="uid://do4hjlo2lnmoo" path="res://scenes/structures/structure.gd" id="1_w8v5r"]
-[ext_resource type="Texture2D" uid="uid://b30n1mhge8dpe" path="res://assets/structures/orb_structure.png" id="2_w8v5r"]
+[ext_resource type="Texture2D" uid="uid://b30n1mhge8dpe" path="res://assets/graphics/structures/orb_structure.png" id="2_w8v5r"]
+[ext_resource type="LabelSettings" uid="uid://c3xdjiygurxp4" path="res://resources/label_settings/pop_label.tres" id="3_mub01"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w8v5r"]
 radius = 89.106674
 
+[sub_resource type="Animation" id="Animation_mub01"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_w8v5r"]
 resource_name = "hit"
+length = 0.13333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteContainer:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03333334, 0.06666668, 0.099999994, 0.13333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.951, 1.084), Vector2(1, 1), Vector2(1.066, 0.948), Vector2(1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mub01"]
 _data = {
+&"RESET": SubResource("Animation_mub01"),
 &"hit": SubResource("Animation_w8v5r")
 }
 
@@ -24,23 +54,26 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_w8v5r")
 
 [node name="PopulationLabel" type="Label" parent="." unique_id=816666122]
-offset_left = -23.0
-offset_top = -41.0
-offset_right = 25.0
-offset_bottom = -18.0
-text = "Pop: 0"
+offset_left = -86.0
+offset_top = -52.0
+offset_right = 86.0
+offset_bottom = 53.0
+text = "0"
+label_settings = ExtResource("3_mub01")
+horizontal_alignment = 1
 
 [node name="GrowthTimer" type="Timer" parent="." unique_id=781753778]
-autostart = true
 
 [node name="Area2D" type="Area2D" parent="." unique_id=780851337]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2049597668]
+visible = false
 shape = SubResource("CircleShape2D_w8v5r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1153623143]
 libraries/ = SubResource("AnimationLibrary_mub01")
 
 [connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

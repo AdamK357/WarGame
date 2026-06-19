@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cbaa7moe7mpby"]
+
+[ext_resource type="Script" uid="uid://ilmvhfx5laqm" path="res://scenes/ui/player_ui.gd" id="1_s4ogp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6aki"]
+bg_color = Color(0.16206557, 0.1620656, 0.16206548, 1)
+
+[node name="PlayerUI" type="Control" unique_id=222176074]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s4ogp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=538215368]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1746743107]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1006.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=1822536964]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k6aki")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=1371692912]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer" unique_id=185003725]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=262717707]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1477011088]
+layout_mode = 2
+text = "Percentage to send:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1957469269]
+layout_mode = 2
+
+[node name="PercentButton1" type="Button" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=611066743]
+layout_mode = 2
+text = "25%"
+
+[node name="PercentButton2" type="Button" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1080238944]
+layout_mode = 2
+text = "50%"
+
+[node name="PercentButton3" type="Button" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1887931589]
+layout_mode = 2
+text = "75%"
+
+[node name="PercentButton4" type="Button" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=941251940]
+layout_mode = 2
+text = "100%"
+
+[node name="AmountTextEdit" type="TextEdit" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1127250950]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "10"
+placeholder_text = "Qty."
+
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PercentButton1" to="." method="_on_percent_button_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PercentButton2" to="." method="_on_percent_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PercentButton3" to="." method="_on_percent_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/PercentButton4" to="." method="_on_percent_button_4_pressed"]
+[connection signal="text_set" from="CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AmountTextEdit" to="." method="_on_amount_text_edit_text_set"]

@@ -22,19 +22,19 @@ func _process(delta):
 	if Input.is_action_pressed("up"):
 		velocity.y -= 1
 
-	# Mouse edge scrolling
-	var mouse_pos = get_viewport().get_mouse_position()
-	var viewport_size = get_viewport_rect().size
-
-	if mouse_pos.x <= edge_size:
-		velocity.x -= 1
-	elif mouse_pos.x >= viewport_size.x - edge_size:
-		velocity.x += 1
-
-	if mouse_pos.y <= edge_size:
-		velocity.y -= 1
-	elif mouse_pos.y >= viewport_size.y - edge_size:
-		velocity.y += 1
+	## Mouse edge scrolling
+	#var mouse_pos = get_viewport().get_mouse_position()
+	#var viewport_size = get_viewport_rect().size
+#
+	#if mouse_pos.x <= edge_size:
+		#velocity.x -= 1
+	#elif mouse_pos.x >= viewport_size.x - edge_size:
+		#velocity.x += 1
+#
+	#if mouse_pos.y <= edge_size:
+		#velocity.y -= 1
+	#elif mouse_pos.y >= viewport_size.y - edge_size:
+		#velocity.y += 1
 
 	# Apply movement
 	if velocity != Vector2.ZERO and not dragging:

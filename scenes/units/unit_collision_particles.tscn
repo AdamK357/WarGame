@@ -2,15 +2,22 @@
 
 [ext_resource type="Script" uid="uid://deeba8p0iqfaw" path="res://scenes/units/unit_collision_particles.gd" id="1_fxagn"]
 
+[sub_resource type="Gradient" id="Gradient_wsx2s"]
+offsets = PackedFloat32Array(0, 0.09798271, 0.20461094, 0.35446686, 0.47838616, 0.64553314, 0.78962535, 1)
+colors = PackedColorArray(0.73195785, 0.39192957, 0.31735808, 1, 0.8049835, 0.5196132, 0.21948656, 1, 0.7977692, 0.6633554, 0.27159545, 1, 0.59764254, 0.84835434, 0.46152276, 1, 0.33505237, 0.7378488, 0.64227086, 1, 0.4184049, 0.6922383, 0.8313841, 1, 0.71256924, 0.5585742, 0.9669572, 1, 0.7294118, 0.5529412, 0.972549, 0)
+
 [node name="UnitCollisionParticles" type="CPUParticles2D" unique_id=1781713302]
 emitting = false
-lifetime = 0.25
 one_shot = true
 explosiveness = 1.0
 spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 55.56
 initial_velocity_max = 148.15
+scale_amount_min = 10.0
+scale_amount_max = 15.0
+color_ramp = SubResource("Gradient_wsx2s")
+color_initial_ramp = SubResource("Gradient_wsx2s")
 script = ExtResource("1_fxagn")
 
 [connection signal="finished" from="." to="." method="_on_finished"]
