@@ -1,21 +1,11 @@
 [gd_scene format=3 uid="uid://yt2p85vnrns8"]
 
 [ext_resource type="Script" uid="uid://bdsqiy7pvo7s2" path="res://scenes/components/camera.gd" id="1_6xmvi"]
-[ext_resource type="PackedScene" uid="uid://cbaa7moe7mpby" path="res://scenes/ui/player_ui.tscn" id="2_fombx"]
 
 [node name="Camera" type="Camera2D" unique_id=525823596]
-position = Vector2(960, 540)
 limit_enabled = false
 limit_left = -2048
 limit_top = -2048
 limit_right = 2048
 limit_bottom = 2048
 script = ExtResource("1_6xmvi")
-
-[node name="PlayerUI" parent="." unique_id=222176074 instance=ExtResource("2_fombx")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
-size_flags_horizontal = 0
