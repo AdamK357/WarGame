@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="war game"
-run/main_scene="uid://bvktsxiu81e7g"
+run/main_scene="uid://b3qct2wpj6ki6"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Globals="*uid://dn5mt275m3mhf"
 GameManager="*uid://cjjt445ln2qgu"
 MultiplayerManager="*uid://b7up2hlbl4yw8"
+TransitionManager="*uid://djbmvivxp8aoc"
 
 [display]
 

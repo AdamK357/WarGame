@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://db25yyl5ojwat" path="res://scenes/AI/ai_controller.tscn" id="3_ce1uw"]
 [ext_resource type="Texture2D" uid="uid://28b0fj6hcje8" path="res://assets/graphics/units/space_background.png" id="4_1gdup"]
 [ext_resource type="PackedScene" uid="uid://yt2p85vnrns8" path="res://scenes/components/camera.tscn" id="5_idmyr"]
+[ext_resource type="PackedScene" uid="uid://cbaa7moe7mpby" path="res://scenes/ui/player_ui.tscn" id="6_player_ui"]
 
 [node name="Map" type="Node2D" unique_id=1160770166]
 script = ExtResource("1_ry644")
@@ -18,49 +19,62 @@ texture = ExtResource("4_1gdup")
 
 [node name="Structure" parent="StructureContainer" unique_id=1956645682 instance=ExtResource("1_fwjtt")]
 position = Vector2(-785, -385)
+structure_id = 1
 _team = 1
 
 [node name="Structure13" parent="StructureContainer" unique_id=1065170507 instance=ExtResource("1_fwjtt")]
 position = Vector2(-440, -445)
+structure_id = 2
 _team = 1
 
 [node name="Structure10" parent="StructureContainer" unique_id=2072093727 instance=ExtResource("1_fwjtt")]
 position = Vector2(-1074, 12)
+structure_id = 3
 
 [node name="Structure2" parent="StructureContainer" unique_id=1173716790 instance=ExtResource("1_fwjtt")]
 position = Vector2(558, -240)
+structure_id = 4
 
 [node name="Structure3" parent="StructureContainer" unique_id=1209777344 instance=ExtResource("1_fwjtt")]
 position = Vector2(23, -208)
+structure_id = 5
 
 [node name="Structure9" parent="StructureContainer" unique_id=1056992150 instance=ExtResource("1_fwjtt")]
 position = Vector2(-540, 53)
+structure_id = 6
 _team = 1
 
 [node name="Structure11" parent="StructureContainer" unique_id=801264240 instance=ExtResource("1_fwjtt")]
 position = Vector2(-580, 524)
+structure_id = 7
 
 [node name="Structure12" parent="StructureContainer" unique_id=1784278448 instance=ExtResource("1_fwjtt")]
 position = Vector2(837, 449.99994)
+structure_id = 8
 _team = 2
 
 [node name="Structure4" parent="StructureContainer" unique_id=549509220 instance=ExtResource("1_fwjtt")]
 position = Vector2(358, 353)
+structure_id = 9
 
 [node name="Structure5" parent="StructureContainer" unique_id=1170202880 instance=ExtResource("1_fwjtt")]
 position = Vector2(885, -736)
+structure_id = 10
 _team = 3
 
 [node name="Structure6" parent="StructureContainer" unique_id=1030646519 instance=ExtResource("1_fwjtt")]
 position = Vector2(1172, -92)
+structure_id = 11
 _team = 3
 
 [node name="Structure7" parent="StructureContainer" unique_id=253355727 instance=ExtResource("1_fwjtt")]
 position = Vector2(374, 819)
+structure_id = 12
 _team = 2
 
 [node name="Structure8" parent="StructureContainer" unique_id=1630015021 instance=ExtResource("1_fwjtt")]
 position = Vector2(-177, 832)
+structure_id = 13
 
 [node name="AIControllers" type="Node" parent="." unique_id=360442435]
 
@@ -72,3 +86,5 @@ _team = 3
 [node name="ParticleContainer" type="Node2D" parent="." unique_id=1509140884]
 
 [node name="Camera" parent="." unique_id=525823596 instance=ExtResource("5_idmyr")]
+
+[node name="PlayerUI" parent="." unique_id=222176074 instance=ExtResource("6_player_ui")]
