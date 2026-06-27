@@ -20,17 +20,17 @@ func _ready() -> void:
 
 
 func _get_my_structures() -> Array[Node]:
-	var all_structures = get_tree().get_nodes_in_group("Structures")
+	var all_structures = get_tree().get_nodes_in_group("structures")
 	return all_structures.filter(func(s): return s.get_team() == _team)
 
 
 func _get_neutral_structures() -> Array[Node]:
-	var all_structures = get_tree().get_nodes_in_group("Structures")
+	var all_structures = get_tree().get_nodes_in_group("structures")
 	return all_structures.filter(func(s): return s.get_team() == 0)
 
 
 func _get_enemy_structures() -> Array[Node]:
-	var all_structures = get_tree().get_nodes_in_group("Structures")
+	var all_structures = get_tree().get_nodes_in_group("structures")
 	return all_structures.filter(func(s): return s.get_team() != _team and s.get_team() != 0)
 
 
@@ -94,7 +94,8 @@ func _maybe_attack(source: Structure, target: Structure) -> void:
 
 	var amount := int(source_pop * send_percentage)
 	if amount > 5:
-		source.send_units(target, true, send_percentage)
+		var request := UnitSendRequest.new(source.structure_id, target.structure_id, Globals.UnitSendMode.PERCENT, send_percentage)
+		source.send_units(request)
 
 
 func _find_weak_friendly_structure() -> Structure:

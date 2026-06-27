@@ -35,6 +35,12 @@ placeholder_text = "Team number (> 0)"
 alignment = 1
 expand_to_text_length = true
 
+[node name="FactionEdit" type="LineEdit" parent="CenterContainer/VBoxContainer" unique_id=857296773]
+layout_mode = 2
+placeholder_text = "Faction (# > 0)"
+alignment = 1
+expand_to_text_length = true
+
 [node name="AddressEdit" type="LineEdit" parent="CenterContainer/VBoxContainer" unique_id=918273645]
 layout_mode = 2
 text = "127.0.0.1"

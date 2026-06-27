@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="FactionData" format=3 uid="uid://b6nwipaansiru"]
+
+[ext_resource type="Script" uid="uid://dtwjshcry8t3c" path="res://resources/factions/faction_data.gd" id="1_3t1qe"]
+
+[resource]
+script = ExtResource("1_3t1qe")
+id = 1
+name = "The Monoliths"
+metadata/_custom_type_script = "uid://dtwjshcry8t3c"

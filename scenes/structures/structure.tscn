@@ -44,7 +44,7 @@ _data = {
 &"hit": SubResource("Animation_w8v5r")
 }
 
-[node name="Structure" type="Node2D" unique_id=1956645682 groups=["Structures"]]
+[node name="Structure" type="Node2D" unique_id=1956645682 groups=["structures"]]
 script = ExtResource("1_w8v5r")
 
 [node name="SpriteContainer" type="Node2D" parent="." unique_id=132514015]
@@ -77,3 +77,5 @@ libraries/ = SubResource("AnimationLibrary_mub01")
 [connection signal="timeout" from="GrowthTimer" to="." method="_on_growth_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

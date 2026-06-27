@@ -10,6 +10,8 @@ const TEAM_COLORS: Dictionary[int, Color] = {
 	6: Color(1.0, 1.0, 1.0, 1.0)
 }
 
+enum UnitSendMode {PERCENT, AMOUNT}
+
 func get_team_color(team: int) -> Color:
 	return TEAM_COLORS.get(team, Color.WHITE)
 

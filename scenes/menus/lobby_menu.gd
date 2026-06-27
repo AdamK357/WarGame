@@ -9,9 +9,11 @@ const DEFAULT_PORT := 60865
 @onready var start_button: Button = $CenterContainer/VBoxContainer/StartButton
 @onready var address_edit: LineEdit = $CenterContainer/VBoxContainer/AddressEdit
 @onready var team_edit: LineEdit = $CenterContainer/VBoxContainer/TeamEdit
+@onready var faction_edit: LineEdit = $CenterContainer/VBoxContainer/FactionEdit
 
 
 func _ready() -> void:
+	MultiplayerManager.disconnect_from_game()  # hard reset
 	MultiplayerManager.peer_list_changed.connect(_refresh_status)
 	MultiplayerManager.connection_failed.connect(_on_connection_failed)
 	_refresh_status()
@@ -22,6 +24,13 @@ func _get_team_from_input() -> int:
 		var team := int(team_edit.text)
 		if team > 0:
 			return team
+	return 1
+
+func _get_faction_from_input() -> int:
+	if faction_edit.text.is_valid_int():
+		var faction := int(faction_edit.text)
+		if faction > 0:
+			return faction
 	return 1
 
 

@@ -1,6 +1,9 @@
 extends Node2D
 class_name Structure
 
+signal mouse_hover_entered(structure)
+signal mouse_hover_exited
+
 # Unit spawning constants
 const SPAWN_MIN_RADIUS := 25.0
 const SPAWN_MAX_RADIUS := 75.0
@@ -74,28 +77,17 @@ func _update_population_label() -> void:
 	population_label.text = str(population)
 
 
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if not event is InputEventMouseButton or not event.pressed:
-		return
-
-	if event.button_index == MOUSE_BUTTON_LEFT and _team == MultiplayerManager.get_local_team():
-		PlayerController.instance.select_source(self)
-	elif event.button_index == MOUSE_BUTTON_RIGHT:
-		PlayerController.instance.select_target(self)
-
-
-func send_units(
-	target_structure: Structure,
-	use_percent: bool = GameManager.player_sending_percentage,
-	value: float = -1.0
-) -> void:
+func send_units(request: UnitSendRequest) -> void:
+	pass
+	var target_structure := MultiplayerManager.get_structure(request.target_id)
+	
 	if not MultiplayerManager.is_server_or_singleplayer():
 		return
 
-	var amount_to_send := _calculate_send_amount(use_percent, value)
+	var amount_to_send := _calculate_send_amount(request)
 	if amount_to_send <= 0:
 		return
-
+	
 	population -= amount_to_send
 	MultiplayerManager.broadcast_structure_state(structure_id, _team, population)
 
@@ -106,11 +98,23 @@ func send_units(
 		await get_tree().create_timer(delay).timeout
 
 
-func _calculate_send_amount(use_percent: bool, value: float) -> int:
-	if use_percent:
-		var percent := value if value >= 0.0 else GameManager.player_percent_to_send
-		return int(population * percent)
-	return int(value if value >= 0.0 else GameManager.player_amount_to_send)
+
+# I updated this code, hopefully it is better, need testing
+func _calculate_send_amount(request: UnitSendRequest) -> int:
+	var result: int = 0
+
+	if request.unit_send_mode == Globals.UnitSendMode.PERCENT:
+		var p = request.percent
+		# If you treat p as 0–100, convert to 0–1:
+		if p > 1.0:
+			p /= 100.0
+		result = int(round(population * p))
+	else:
+		result = int(request.amount)
+
+	# Clamp to valid range
+	result = clampi(result, 0, population)
+	return result
 
 
 func spawn_unit(target_structure: Structure) -> void:
@@ -164,3 +168,11 @@ func _on_area_2d_body_entered(body) -> void:
 		return
 	if body is Unit and self != body.target_structure:
 		body.die()
+
+
+func _on_area_2d_mouse_entered():
+	mouse_hover_entered.emit(self)
+
+
+func _on_area_2d_mouse_exited():
+	mouse_hover_exited.emit()
