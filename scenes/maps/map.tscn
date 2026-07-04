@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvktsxiu81e7g"]
 
-[ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/structure.tscn" id="1_fwjtt"]
+[ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/base_structure.tscn" id="1_fwjtt"]
 [ext_resource type="Script" uid="uid://boa2uypqio28w" path="res://scenes/maps/map.gd" id="1_ry644"]
 [ext_resource type="PackedScene" uid="uid://db25yyl5ojwat" path="res://scenes/AI/ai_controller.tscn" id="3_ce1uw"]
 [ext_resource type="Texture2D" uid="uid://28b0fj6hcje8" path="res://assets/graphics/units/space_background.png" id="4_1gdup"]
@@ -19,17 +19,14 @@ texture = ExtResource("4_1gdup")
 
 [node name="Structure" parent="StructureContainer" unique_id=1956645682 instance=ExtResource("1_fwjtt")]
 position = Vector2(-785, -385)
-structure_id = 1
 _team = 1
 
 [node name="Structure13" parent="StructureContainer" unique_id=1065170507 instance=ExtResource("1_fwjtt")]
 position = Vector2(-440, -445)
-structure_id = 2
 _team = 1
 
 [node name="Structure10" parent="StructureContainer" unique_id=2072093727 instance=ExtResource("1_fwjtt")]
 position = Vector2(-1074, 12)
-structure_id = 3
 
 [node name="Structure2" parent="StructureContainer" unique_id=1173716790 instance=ExtResource("1_fwjtt")]
 position = Vector2(558, -240)

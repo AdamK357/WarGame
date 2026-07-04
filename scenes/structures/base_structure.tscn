@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b2o5dqye48dnl"]
 
-[ext_resource type="Script" uid="uid://do4hjlo2lnmoo" path="res://scenes/structures/structure.gd" id="1_w8v5r"]
-[ext_resource type="Texture2D" uid="uid://b30n1mhge8dpe" path="res://assets/graphics/structures/orb_structure.png" id="2_w8v5r"]
-[ext_resource type="LabelSettings" uid="uid://c3xdjiygurxp4" path="res://resources/label_settings/pop_label.tres" id="3_mub01"]
+[ext_resource type="Script" uid="uid://do4hjlo2lnmoo" path="res://scenes/structures/base_structure.gd" id="1_fpatj"]
+[ext_resource type="Texture2D" uid="uid://b30n1mhge8dpe" path="res://assets/graphics/structures/orb_structure.png" id="2_caegd"]
+[ext_resource type="LabelSettings" uid="uid://c3xdjiygurxp4" path="res://resources/label_settings/pop_label.tres" id="3_qdr2w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w8v5r"]
 radius = 89.106674
@@ -44,14 +44,14 @@ _data = {
 &"hit": SubResource("Animation_w8v5r")
 }
 
-[node name="Structure" type="Node2D" unique_id=1956645682 groups=["structures"]]
-script = ExtResource("1_w8v5r")
+[node name="BaseStructure" type="Node2D" unique_id=1956645682 groups=["structures"]]
+script = ExtResource("1_fpatj")
 
 [node name="SpriteContainer" type="Node2D" parent="." unique_id=132514015]
 
 [node name="Sprite2D" type="Sprite2D" parent="SpriteContainer" unique_id=2014797076]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_w8v5r")
+texture = ExtResource("2_caegd")
 
 [node name="PopulationLabel" type="Label" parent="." unique_id=816666122]
 offset_left = -86.0
@@ -59,7 +59,7 @@ offset_top = -52.0
 offset_right = 86.0
 offset_bottom = 53.0
 text = "0"
-label_settings = ExtResource("3_mub01")
+label_settings = ExtResource("3_qdr2w")
 horizontal_alignment = 1
 
 [node name="GrowthTimer" type="Timer" parent="." unique_id=781753778]

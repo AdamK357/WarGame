@@ -1,5 +1,5 @@
 extends Node2D
-class_name Structure
+class_name BaseStructure
 
 signal mouse_hover_entered(structure)
 signal mouse_hover_exited
@@ -21,32 +21,44 @@ const SPAWN_DELAY_SCALE := 0.001
 @onready var unit_scene: PackedScene = preload("res://scenes/units/unit.tscn")
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-var population: int = 10:
+@export var population: int = 10:
 	set(value):
 		population = value
 		_update_population_label()
-var max_population: int = 100
-var growth_rate: float = 1
-var growth_amount: int = 1
+## Set to -1 to disable
+@export var max_population: int = -1
+## Should the population increase over time
+@export var can_grow: bool = true
+## Amount of time between population growths (seconds)
+@export var growth_time: float = 1
+## Amount added to population per growth
+@export var growth_amount: int = 1
 
 
 func _ready() -> void:
-	growth_timer.wait_time = growth_rate
+	growth_timer.wait_time = growth_time
 	_update_texture()
 	_update_population_label()
 	if _team != 0 and MultiplayerManager.is_server_or_singleplayer():
 		growth_timer.start()
 
 
+
 func _update_texture() -> void:
-	sprite2d.modulate = Globals.get_team_color(_team)
+	if sprite2d != null:
+		sprite2d.modulate = Globals.get_team_color(_team)
 
 
 func _on_growth_timer_timeout() -> void:
 	if not MultiplayerManager.is_server_or_singleplayer(): # if this instance of the game is a client, exit this function.
 		return
-
-	var new_population := clampi(population + growth_amount, 0, max_population)
+	
+	var new_population
+	if max_population < 0:
+		new_population = population + growth_amount
+	else:
+		new_population = clampi(population + growth_amount, 0, max_population)
+	
 	if new_population == population:
 		return
 
@@ -54,11 +66,11 @@ func _on_growth_timer_timeout() -> void:
 	MultiplayerManager.broadcast_structure_state(structure_id, _team, population)
 
 
-func set_team(team: int) -> void:
-	if _team == 0 and team != 0 and MultiplayerManager.is_server_or_singleplayer():
+func set_team(new_team: int) -> void:
+	if _team == 0 and can_grow and new_team != 0 and MultiplayerManager.is_server_or_singleplayer():
 		growth_timer.start()
 
-	_team = team
+	_team = new_team
 	_update_texture()
 
 
@@ -74,13 +86,10 @@ func apply_network_state(team: int, new_population: int) -> void: # this is a re
 
 
 func _update_population_label() -> void:
-	population_label.text = str(population)
-
+	if population_label != null:
+		population_label.text = str(population)
 
 func send_units(request: UnitSendRequest) -> void:
-	pass
-	var target_structure := MultiplayerManager.get_structure(request.target_id)
-	
 	if not MultiplayerManager.is_server_or_singleplayer():
 		return
 
@@ -94,7 +103,8 @@ func send_units(request: UnitSendRequest) -> void:
 	# Stagger unit spawning for visual effect - delay increases with quantity
 	var delay := clampf(SPAWN_DELAY_MAX - amount_to_send * SPAWN_DELAY_SCALE, SPAWN_DELAY_MIN, SPAWN_DELAY_MAX)
 	for i in amount_to_send:
-		spawn_unit(target_structure)
+		request.unit_id = UnitManager.generate_unit_id()
+		spawn_unit(request)
 		await get_tree().create_timer(delay).timeout
 
 
@@ -117,30 +127,22 @@ func _calculate_send_amount(request: UnitSendRequest) -> int:
 	return result
 
 
-func spawn_unit(target_structure: Structure) -> void:
-	var spawn_offset := _generate_spawn_offset(target_structure.global_position)
-	var spawn_pos := global_position + spawn_offset
-	var target_pos := target_structure.generate_arrival_position()
-
-	var unit_id := MultiplayerManager.generate_unit_id()
-	MultiplayerManager.broadcast_spawn_unit(
-		_team,
-		structure_id,
-		target_structure.structure_id,
-		spawn_pos,
-		target_pos,
-		unit_id
-	)
+func spawn_unit(req: UnitSendRequest) -> void:
+	var target: BaseStructure = StructureManager.get_structure(req.target_id)
+	req.spawn_pos = _generate_spawn_position(target.global_position)
+	req.target_pos = target.generate_arrival_position()
+	
+	MultiplayerManager.broadcast_spawn_unit(req)
 
 
-## Generate a spawn offset biased toward the target direction
-func _generate_spawn_offset(target_pos: Vector2) -> Vector2:
+## Generate a spawn position biased toward the target direction
+func _generate_spawn_position(target_pos: Vector2) -> Vector2:
 	var distance := randf_range(SPAWN_MIN_RADIUS, SPAWN_MAX_RADIUS)
 	var angle_to_target := get_angle_to(target_pos)
 	var lower_angle := angle_to_target - SPAWN_ANGLE_RANGE
 	var upper_angle := angle_to_target + SPAWN_ANGLE_RANGE
 	var angle := randf_range(lower_angle, upper_angle)
-	return Vector2.from_angle(angle) * distance
+	return global_position + (Vector2.from_angle(angle) * distance)
 
 
 ## Generate a random arrival position around this structure

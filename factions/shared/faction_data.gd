@@ -5,4 +5,5 @@ class_name FactionData
 @export var name: String
 @export var growth_rate_multiplier: float = 1.0
 @export var unit_speed_multiplier: float = 1.0
-@export var ability_scripts: Array[Script]
+@export var ability_scripts: Array[Resource]
+@export var passive_scripts: Array[Resource]

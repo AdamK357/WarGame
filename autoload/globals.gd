@@ -15,7 +15,6 @@ enum UnitSendMode {PERCENT, AMOUNT}
 func get_team_color(team: int) -> Color:
 	return TEAM_COLORS.get(team, Color.WHITE)
 
-
 func send_note(message) -> void:
 	print("|NOTE|  " + str(message))
 

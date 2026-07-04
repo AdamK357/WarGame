@@ -8,7 +8,7 @@ class_name Unit
 
 var unit_id: int = -1
 var _team: int
-var target_structure: Structure
+var target_structure: BaseStructure
 var target_position: Vector2
 
 
@@ -57,12 +57,12 @@ func get_team() -> int:
 	return _team
 
 
-func set_target_structure(target: Structure) -> void:
+func set_target_structure(target: BaseStructure) -> void:
 	target_structure = target
 	target_position = target.generate_arrival_position()
 
 
-func set_target_from_network(target: Structure, arrival_position: Vector2) -> void:
+func set_target_from_network(target: BaseStructure, arrival_position: Vector2) -> void:
 	target_structure = target
 	target_position = arrival_position
 
@@ -79,7 +79,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 func _resolve_unit_collision(other: Unit) -> void:
 	if unit_id < other.unit_id:
 		return
-
 	die()
 	other.die()
 
@@ -99,5 +98,5 @@ func die_at_position(effect_pos: Vector2) -> void:
 
 func _remove_self() -> void:
 	if unit_id >= 0:
-		MultiplayerManager.unregister_unit(unit_id)
+		UnitManager.unregister_unit(unit_id)
 	queue_free()

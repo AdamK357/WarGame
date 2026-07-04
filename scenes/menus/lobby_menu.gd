@@ -35,11 +35,11 @@ func _get_faction_from_input() -> int:
 
 
 func _on_host_button_pressed() -> void:
-	var error := MultiplayerManager.host_game(DEFAULT_PORT, _get_team_from_input())
+	var error := MultiplayerManager.host_game(DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
 	if error != OK:
 		_set_status("Failed to host on port %d" % DEFAULT_PORT)
 		return
-	_set_status("Hosting on port %d as team %d" % [DEFAULT_PORT, MultiplayerManager.local_team])
+	_set_status("Hosting on port %d as team %d" % [DEFAULT_PORT, MultiplayerManager.local_team_id])
 
 
 func _on_join_button_pressed() -> void:
@@ -47,7 +47,7 @@ func _on_join_button_pressed() -> void:
 	if address.is_empty():
 		address = "127.0.0.1"
 
-	var error := MultiplayerManager.join_game(address, DEFAULT_PORT, _get_team_from_input())
+	var error := MultiplayerManager.join_game(address, DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
 	if error != OK:
 		_set_status("Failed to connect to %s:%d" % [address, DEFAULT_PORT])
 		return
@@ -59,9 +59,10 @@ func _on_start_button_pressed() -> void:
 		_set_status("Only the host can start the game")
 		return
 
-	MultiplayerManager.local_team = _get_team_from_input()
+	MultiplayerManager.local_team_id = _get_team_from_input()
+	MultiplayerManager.local_faction_id = _get_faction_from_input()
 	if MultiplayerManager.is_multiplayer():
-		MultiplayerManager.peer_teams[1] = MultiplayerManager.local_team
+		MultiplayerManager.peer_teams[1] = MultiplayerManager.local_team_id
 		MultiplayerManager.human_teams = MultiplayerManager.peer_teams.values()
 
 	MultiplayerManager.start_game(MAP_PATH)
@@ -78,9 +79,9 @@ func _refresh_status() -> void:
 
 	if multiplayer.is_server():
 		var player_count := multiplayer.get_peers().size() + 1
-		_set_status("Hosting — %d player(s), team %d" % [player_count, MultiplayerManager.local_team])
+		_set_status("Hosting — %d player(s), team %d" % [player_count, MultiplayerManager.local_team_id])
 	else:
-		_set_status("Connected — team %d" % MultiplayerManager.local_team)
+		_set_status("Connected — team %d — faction %d" % [MultiplayerManager.local_team_id, MultiplayerManager.local_faction_id])
 
 
 func _set_status(message: String) -> void:

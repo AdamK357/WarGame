@@ -1,0 +1,2 @@
+extends FactionAbility
+class_name PrismLaserAbility

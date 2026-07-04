@@ -50,7 +50,7 @@ func _on_action_timer_timeout() -> void:
 			_maybe_attack(source, target)
 
 
-func _choose_target(source: Structure) -> Structure:
+func _choose_target(source: BaseStructure) -> BaseStructure:
 	var neutral_structures := _get_neutral_structures()
 	var enemy_structures := _get_enemy_structures()
 
@@ -81,7 +81,7 @@ func _choose_target(source: Structure) -> Structure:
 	return candidates[0]
 
 
-func _maybe_attack(source: Structure, target: Structure) -> void:
+func _maybe_attack(source: BaseStructure, target: BaseStructure) -> void:
 	var source_pop := source.population
 	var target_pop := target.population
 
@@ -94,18 +94,19 @@ func _maybe_attack(source: Structure, target: Structure) -> void:
 
 	var amount := int(source_pop * send_percentage)
 	if amount > 5:
-		var request := UnitSendRequest.new(source.structure_id, target.structure_id, Globals.UnitSendMode.PERCENT, send_percentage)
+		var request := UnitSendRequest.new()
+		request.initialize(source.structure_id, target.structure_id, -1, _team, -1, Globals.UnitSendMode.PERCENT, 0.5, -1)
 		source.send_units(request)
 
 
-func _find_weak_friendly_structure() -> Structure:
+func _find_weak_friendly_structure() -> BaseStructure:
 	var my_structures := _get_my_structures()
 	if my_structures.is_empty():
 		return null
 
 	my_structures.sort_custom(func(a, b): return a.population < b.population)
 
-	var weakest: Structure = my_structures[0]
+	var weakest: BaseStructure = my_structures[0]
 	if weakest.population < vulnerability_threshold:
 		return weakest
 
