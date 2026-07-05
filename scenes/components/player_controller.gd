@@ -18,6 +18,7 @@ func _exit_tree(): # ensures that when queue_free() is called, any references to
 	if instance == self:
 		instance = null
 
+
 func select_source(structure: BaseStructure) -> void:
 	if structure.get_team() != team:
 		return
@@ -36,16 +37,22 @@ func connect_to_signals():
 	StructureManager.structure_registered.connect(connect_structure_signals)
 	initial_connect_structure_signals()
 
+# Connects to a structure's signals using the structure ID to get a reference to the structure.
+# Requires StructureManager._structures_by_id to already contain the structure and structure id.
+# Only called by the structure_registered function in StructureManager.
 func connect_structure_signals(structure_id: int):
 	var structure = StructureManager.get_structure(structure_id)
 	structure.mouse_hover_entered.connect(set_hovered_structure)
 	structure.mouse_hover_exited.connect(set_hovered_structure)
+	#print("signals connected to controller" + str(MultiplayerManager.get_local_peer_id()))
 
+# Connects to each structure's signals that already exist in the map on ready using direct references to the structure.
 func initial_connect_structure_signals():
 	var structure_group := get_tree().get_nodes_in_group("structures")
 	for structure in structure_group:
 		structure.mouse_hover_entered.connect(set_hovered_structure)
 		structure.mouse_hover_exited.connect(set_hovered_structure)
+
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton and event.pressed:
