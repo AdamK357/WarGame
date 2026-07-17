@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="FactionData" format=3 uid="uid://b6nwipaansiru"]
 
 [ext_resource type="Script" uid="uid://dtwjshcry8t3c" path="res://factions/shared/faction_data.gd" id="1_3t1qe"]
-[ext_resource type="Script" uid="uid://ev2obe5l5f3b" path="res://factions/abilities/monoliths/monolith_outpost_ability.gd" id="1_pms7y"]
+[ext_resource type="Resource" uid="uid://bdj7247bbhyi4" path="res://factions/abilities/monoliths/spawn_outpost_ability.tres" id="1_q08fn"]
+[ext_resource type="Resource" uid="uid://ydpf7xkfcki2" path="res://factions/abilities/monoliths/spawn_forge_ability.tres" id="2_o6swr"]
+[ext_resource type="Resource" uid="uid://lj8hvic1dbdo" path="res://factions/logic/monolith_logic.tres" id="3_o6swr"]
+[ext_resource type="Texture2D" uid="uid://bvwes6ls0ccw0" path="res://assets/graphics/structures/monolith_forge_structure.png" id="4_q08fn"]
+[ext_resource type="Texture2D" uid="uid://bumeknt52qypr" path="res://assets/graphics/units/monolith_unit.png" id="4_u5kta"]
 
 [resource]
 script = ExtResource("1_3t1qe")
-id = 1
 name = "The Monoliths"
-ability_scripts = Array[Resource]([ExtResource("1_pms7y")])
+unit_texture = ExtResource("4_u5kta")
+structure_texture = ExtResource("4_q08fn")
+ability_resources = Array[Resource]([ExtResource("1_q08fn"), ExtResource("2_o6swr")])
+logic_module = ExtResource("3_o6swr")
 metadata/_custom_type_script = "uid://dtwjshcry8t3c"

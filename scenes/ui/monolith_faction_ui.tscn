@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c8f7pm6kvkkbj"]
+
+[ext_resource type="Script" uid="uid://b0iabk5m0cmh0" path="res://scenes/ui/monolith_faction_ui.gd" id="1_va8gt"]
+
+[node name="MonolithFactionUI" type="Control" unique_id=1358577425]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_va8gt")
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1042716278]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2" unique_id=584809405]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/HBoxContainer" unique_id=2133394528]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/HBoxContainer/VBoxContainer" unique_id=1345474369]
+layout_mode = 2
+text = "Faction: The Monoliths"
+
+[node name="AbilityButton1" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer" unique_id=706374370]
+layout_mode = 2
+text = "Build Outpost"
+
+[node name="AbilityButton2" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer" unique_id=1919450824]
+layout_mode = 2
+text = "Build the Monolith Forge"
+
+[node name="AbilityButton3" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer" unique_id=413870526]
+layout_mode = 2
+text = "Ability 3"
+
+[node name="AbilityButton4" type="Button" parent="MarginContainer2/HBoxContainer/VBoxContainer" unique_id=722868547]
+layout_mode = 2
+text = "Ability 4"
+
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/AbilityButton1" to="." method="_on_ability_button_1_pressed"]
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/AbilityButton2" to="." method="_on_ability_button_2_pressed"]
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/AbilityButton3" to="." method="_on_ability_button_3_pressed"]
+[connection signal="pressed" from="MarginContainer2/HBoxContainer/VBoxContainer/AbilityButton4" to="." method="_on_ability_button_4_pressed"]

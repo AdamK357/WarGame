@@ -1,77 +1,67 @@
 [gd_scene format=3 uid="uid://bvktsxiu81e7g"]
 
-[ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/base_structure.tscn" id="1_fwjtt"]
 [ext_resource type="Script" uid="uid://boa2uypqio28w" path="res://scenes/maps/map.gd" id="1_ry644"]
 [ext_resource type="PackedScene" uid="uid://db25yyl5ojwat" path="res://scenes/AI/ai_controller.tscn" id="3_ce1uw"]
-[ext_resource type="Texture2D" uid="uid://28b0fj6hcje8" path="res://assets/graphics/units/space_background.png" id="4_1gdup"]
+[ext_resource type="PackedScene" uid="uid://cjdp83ufxp3ff" path="res://scenes/structures/growth_structure.tscn" id="3_elcdo"]
 [ext_resource type="PackedScene" uid="uid://yt2p85vnrns8" path="res://scenes/components/camera.tscn" id="5_idmyr"]
 [ext_resource type="PackedScene" uid="uid://cbaa7moe7mpby" path="res://scenes/ui/player_ui.tscn" id="6_player_ui"]
+[ext_resource type="PackedScene" uid="uid://bb3dbn763rw44" path="res://scenes/components/background.tscn" id="7_elcdo"]
+[ext_resource type="PackedScene" uid="uid://4owfs4wmaw5m" path="res://scenes/ui/player_menu.tscn" id="7_ttkqu"]
 
 [node name="Map" type="Node2D" unique_id=1160770166]
 script = ExtResource("1_ry644")
 
-[node name="SpaceBackground" type="Sprite2D" parent="." unique_id=1954463016]
-texture = ExtResource("4_1gdup")
+[node name="Background" parent="." unique_id=1697019609 node_paths=PackedStringArray("camera") instance=ExtResource("7_elcdo")]
+offset_left = -9042.0
+offset_top = -7096.0
+offset_right = 7930.0
+offset_bottom = 8046.0
+mouse_filter = 2
+camera = NodePath("../Camera")
 
 [node name="UnitContainer" type="Node2D" parent="." unique_id=1008413644]
 
 [node name="StructureContainer" type="Node2D" parent="." unique_id=1690486104]
 
-[node name="Structure" parent="StructureContainer" unique_id=1956645682 instance=ExtResource("1_fwjtt")]
-position = Vector2(-785, -385)
-_team = 1
+[node name="GrowthStructure" parent="StructureContainer" unique_id=1956645682 instance=ExtResource("3_elcdo")]
+position = Vector2(-787, -379)
+team = 1
 
-[node name="Structure13" parent="StructureContainer" unique_id=1065170507 instance=ExtResource("1_fwjtt")]
-position = Vector2(-440, -445)
-_team = 1
+[node name="GrowthStructure2" parent="StructureContainer" unique_id=792576276 instance=ExtResource("3_elcdo")]
+position = Vector2(-332, -378)
 
-[node name="Structure10" parent="StructureContainer" unique_id=2072093727 instance=ExtResource("1_fwjtt")]
-position = Vector2(-1074, 12)
+[node name="GrowthStructure3" parent="StructureContainer" unique_id=1929023557 instance=ExtResource("3_elcdo")]
+position = Vector2(-785, -6)
 
-[node name="Structure2" parent="StructureContainer" unique_id=1173716790 instance=ExtResource("1_fwjtt")]
-position = Vector2(558, -240)
-structure_id = 4
+[node name="GrowthStructure4" parent="StructureContainer" unique_id=1403999106 instance=ExtResource("3_elcdo")]
+position = Vector2(-330, -5)
 
-[node name="Structure3" parent="StructureContainer" unique_id=1209777344 instance=ExtResource("1_fwjtt")]
-position = Vector2(23, -208)
-structure_id = 5
+[node name="GrowthStructure5" parent="StructureContainer" unique_id=877451963 instance=ExtResource("3_elcdo")]
+position = Vector2(-779, 354)
+team = 2
 
-[node name="Structure9" parent="StructureContainer" unique_id=1056992150 instance=ExtResource("1_fwjtt")]
-position = Vector2(-540, 53)
-structure_id = 6
-_team = 1
+[node name="GrowthStructure6" parent="StructureContainer" unique_id=1638524849 instance=ExtResource("3_elcdo")]
+position = Vector2(-324, 355)
 
-[node name="Structure11" parent="StructureContainer" unique_id=801264240 instance=ExtResource("1_fwjtt")]
-position = Vector2(-580, 524)
-structure_id = 7
+[node name="GrowthStructure7" parent="StructureContainer" unique_id=503884525 instance=ExtResource("3_elcdo")]
+position = Vector2(356, -375)
 
-[node name="Structure12" parent="StructureContainer" unique_id=1784278448 instance=ExtResource("1_fwjtt")]
-position = Vector2(837, 449.99994)
-structure_id = 8
-_team = 2
+[node name="GrowthStructure8" parent="StructureContainer" unique_id=91155467 instance=ExtResource("3_elcdo")]
+position = Vector2(811, -374)
+team = 3
 
-[node name="Structure4" parent="StructureContainer" unique_id=549509220 instance=ExtResource("1_fwjtt")]
-position = Vector2(358, 353)
-structure_id = 9
+[node name="GrowthStructure9" parent="StructureContainer" unique_id=976592906 instance=ExtResource("3_elcdo")]
+position = Vector2(358, -2)
 
-[node name="Structure5" parent="StructureContainer" unique_id=1170202880 instance=ExtResource("1_fwjtt")]
-position = Vector2(885, -736)
-structure_id = 10
-_team = 3
+[node name="GrowthStructure10" parent="StructureContainer" unique_id=1665489563 instance=ExtResource("3_elcdo")]
+position = Vector2(813, -1)
 
-[node name="Structure6" parent="StructureContainer" unique_id=1030646519 instance=ExtResource("1_fwjtt")]
-position = Vector2(1172, -92)
-structure_id = 11
-_team = 3
+[node name="GrowthStructure11" parent="StructureContainer" unique_id=295327685 instance=ExtResource("3_elcdo")]
+position = Vector2(364, 358)
 
-[node name="Structure7" parent="StructureContainer" unique_id=253355727 instance=ExtResource("1_fwjtt")]
-position = Vector2(374, 819)
-structure_id = 12
-_team = 2
-
-[node name="Structure8" parent="StructureContainer" unique_id=1630015021 instance=ExtResource("1_fwjtt")]
-position = Vector2(-177, 832)
-structure_id = 13
+[node name="GrowthStructure12" parent="StructureContainer" unique_id=1637453950 instance=ExtResource("3_elcdo")]
+position = Vector2(819, 359)
+team = 4
 
 [node name="AIControllers" type="Node" parent="." unique_id=360442435]
 
@@ -84,4 +74,8 @@ _team = 3
 
 [node name="Camera" parent="." unique_id=525823596 instance=ExtResource("5_idmyr")]
 
-[node name="PlayerUI" parent="." unique_id=222176074 instance=ExtResource("6_player_ui")]
+[node name="UI" type="CanvasLayer" parent="." unique_id=852520138]
+
+[node name="PlayerMenu" parent="UI" unique_id=489993954 instance=ExtResource("7_ttkqu")]
+
+[node name="PlayerUI" parent="UI" unique_id=222176074 instance=ExtResource("6_player_ui")]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dr4usqegs81ry"]
+
+[ext_resource type="Texture2D" uid="uid://c7gmmqy8rocj5" path="res://assets/graphics/ui/arrow.png" id="1_iwq7a"]
+
+[node name="TargetingArrow" type="Node2D" unique_id=1362844816]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=961065788]
+position = Vector2(196, 0)
+rotation = 1.5707964
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("1_iwq7a")

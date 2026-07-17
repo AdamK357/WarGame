@@ -20,16 +20,26 @@ config/icon="res://icon.svg"
 Globals="*uid://dn5mt275m3mhf"
 GameManager="*uid://cjjt445ln2qgu"
 MultiplayerManager="*uid://b7up2hlbl4yw8"
-TransitionManager="*uid://djbmvivxp8aoc"
 FactionManager="*uid://brsufl1c2436h"
 StructureManager="*uid://byce6gwhyc28"
 UnitManager="*uid://ckp88f4m2kfy4"
 AbilityManager="*uid://6el3dqajwuua"
+SceneManager="*uid://bmwsg1pr2vc5v"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "green",
+"res://autoload/": "red",
+"res://factions/": "blue",
+"res://scenes/": "pink",
+"res://scripts/": "purple"
+}
 
 [global_group]
 

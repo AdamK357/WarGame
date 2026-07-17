@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="FactionData" format=3 uid="uid://djehl3nn3hwsd"]
 
+[ext_resource type="Resource" uid="uid://lj8hvic1dbdo" path="res://factions/logic/monolith_logic.tres" id="1_dvb87"]
 [ext_resource type="Script" uid="uid://dtwjshcry8t3c" path="res://factions/shared/faction_data.gd" id="1_lw745"]
 
 [resource]
 script = ExtResource("1_lw745")
-id = 2
+name = "The Prisms"
+logic_module = ExtResource("1_dvb87")
 metadata/_custom_type_script = "uid://dtwjshcry8t3c"

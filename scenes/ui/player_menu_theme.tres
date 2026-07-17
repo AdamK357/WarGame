@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://b2nh35mljtnyp"]
+
+[ext_resource type="FontFile" uid="uid://c5lx4c0vf2211" path="res://assets/fonts/CosmicGlyphs-Regular.otf" id="1_801ji"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_801ji"]
+bg_color = Color(0.82408655, 0.47157073, 0.62284076, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1i38"]
+bg_color = Color(0.47704375, 0.5892605, 0.8797614, 1)
+
+[resource]
+default_font = ExtResource("1_801ji")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+Panel/styles/panel = SubResource("StyleBoxFlat_801ji")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_v1i38")

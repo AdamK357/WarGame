@@ -1,0 +1,2 @@
+extends SpawnStructureAbility
+class_name SpawnOutpostAbility

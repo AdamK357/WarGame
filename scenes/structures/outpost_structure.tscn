@@ -1,7 +1,17 @@
 [gd_scene format=3 uid="uid://chmw4fvopbucy"]
 
 [ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/base_structure.tscn" id="1_hh8xb"]
+[ext_resource type="Script" uid="uid://cehtg3ss5tr8y" path="res://scenes/structures/outpost_structure.gd" id="2_10024"]
+[ext_resource type="Texture2D" uid="uid://bm0p5bur2kre0" path="res://assets/graphics/structures/outpost_structure.png" id="2_b8gja"]
 
 [node name="OutpostStructure" unique_id=1956645682 instance=ExtResource("1_hh8xb")]
+script = ExtResource("2_10024")
 population = 0
 can_grow = false
+
+[node name="Sprite2D" parent="SpriteContainer" parent_id_path=PackedInt32Array(132514015) index="0" unique_id=2014797076]
+texture = ExtResource("2_b8gja")
+
+[node name="PopulationLabel" parent="." index="2" unique_id=816666122]
+offset_top = -145.995
+offset_bottom = -40.744995

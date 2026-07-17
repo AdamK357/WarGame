@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="MonolithLogic" format=3 uid="uid://lj8hvic1dbdo"]
+
+[ext_resource type="Script" uid="uid://bkgdji6hdtpna" path="res://factions/logic/monolith_logic.gd" id="1_4ulef"]
+
+[resource]
+script = ExtResource("1_4ulef")
+metadata/_custom_type_script = "uid://bkgdji6hdtpna"

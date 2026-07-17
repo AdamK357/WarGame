@@ -13,11 +13,13 @@ const SPAWN_DELAY_MAX := 0.2
 const SPAWN_DELAY_SCALE := 0.001
 
 @export var structure_id: int = 0
-@export var _team: int = 0
+@export var team: int = 0
 
 @onready var growth_timer: Timer = $GrowthTimer
 @onready var population_label: Label = $PopulationLabel
+@onready var selection_ring: Sprite2D = $SelectionRingSprite
 @onready var sprite2d: Sprite2D = $SpriteContainer/Sprite2D
+@onready var sprite_container: Node2D = $SpriteContainer
 @onready var unit_scene: PackedScene = preload("res://scenes/units/unit.tscn")
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
@@ -39,14 +41,41 @@ func _ready() -> void:
 	growth_timer.wait_time = growth_time
 	_update_texture()
 	_update_population_label()
-	if _team != 0 and MultiplayerManager.is_server_or_singleplayer():
+	
+	if not MultiplayerManager.is_server_or_singleplayer():
+		return
+	
+	if team != 0:
 		growth_timer.start()
 
 
+func set_team(new_team: int) -> void:
+	if MultiplayerManager.is_server_or_singleplayer():
+		if team == 0 and can_grow and new_team != 0:
+			growth_timer.start()
+	
+	team = new_team
+	_update_texture()
 
+
+func get_team() -> int:
+	return team
+
+
+## Will not work if structure is not added to scene yet.
 func _update_texture() -> void:
-	if sprite2d != null:
-		sprite2d.modulate = Globals.get_team_color(_team)
+	if sprite2d == null:
+		return
+	sprite2d.modulate = Globals.get_team_color(team)
+	var faction_id: int = FactionManager.get_team_faction_id(team)
+	if faction_id == 0:
+		return
+	
+	if self is GrowthStructure:
+		var texture: Texture2D = FactionManager.get_base_faction_data(faction_id).structure_texture
+		if texture == null or texture == sprite2d.texture:
+			return
+		sprite2d.texture = texture
 
 
 func _on_growth_timer_timeout() -> void:
@@ -63,23 +92,14 @@ func _on_growth_timer_timeout() -> void:
 		return
 
 	population = new_population # authoritative update to the population. population label is updated using apply_network_state() through broadcast_structure_state()
-	MultiplayerManager.broadcast_structure_state(structure_id, _team, population)
+	StructureManager.broadcast_structure_state(structure_id, team, population)
 
 
-func set_team(new_team: int) -> void:
-	if _team == 0 and can_grow and new_team != 0 and MultiplayerManager.is_server_or_singleplayer():
-		growth_timer.start()
-
-	_team = new_team
-	_update_texture()
 
 
-func get_team() -> int:
-	return _team
 
-
-func apply_network_state(team: int, new_population: int) -> void: # this is a replication function who's job is to simply update the clients with the server's information/state. Singleplayer still uses this function just to update the visual state, but does not use it as an authoritative function.
-	_team = team
+func apply_network_state(_team: int, new_population: int) -> void: # this is a replication function who's job is to simply update the clients with the server's information/state. Singleplayer still uses this function just to update the visual state, but does not use it as an authoritative function.
+	team = _team
 	population = new_population
 	_update_texture()
 	_update_population_label()
@@ -98,7 +118,7 @@ func send_units(request: UnitSendRequest) -> void:
 		return
 	
 	population -= amount_to_send
-	MultiplayerManager.broadcast_structure_state(structure_id, _team, population)
+	StructureManager.broadcast_structure_state(structure_id, team, population)
 
 	# Stagger unit spawning for visual effect - delay increases with quantity
 	var delay := clampf(SPAWN_DELAY_MAX - amount_to_send * SPAWN_DELAY_SCALE, SPAWN_DELAY_MIN, SPAWN_DELAY_MAX)
@@ -128,11 +148,14 @@ func _calculate_send_amount(request: UnitSendRequest) -> int:
 
 
 func spawn_unit(req: UnitSendRequest) -> void:
+	if not MultiplayerManager.is_server_or_singleplayer():
+		return
+	
 	var target: BaseStructure = StructureManager.get_structure(req.target_id)
 	req.spawn_pos = _generate_spawn_position(target.global_position)
 	req.target_pos = target.generate_arrival_position()
 	
-	MultiplayerManager.broadcast_spawn_unit(req)
+	UnitManager.broadcast_spawn_unit(req)
 
 
 ## Generate a spawn position biased toward the target direction
@@ -154,27 +177,39 @@ func generate_arrival_position() -> Vector2:
 
 
 func apply_unit_hit(attacker_team: int) -> void:
-	if attacker_team == _team:
+	if attacker_team == team:
 		population += 1
+		anim_player.play("hit")
 	else:
 		population -= 1
 		anim_player.play("hit")
 		if population <= 0:
 			set_team(attacker_team)
 
-	MultiplayerManager.broadcast_structure_state(structure_id, _team, population)
-
-
-func _on_area_2d_body_entered(body) -> void:
-	if not MultiplayerManager.is_server_or_singleplayer():
-		return
-	if body is Unit and self != body.target_structure:
-		body.die()
+	StructureManager.broadcast_structure_state(structure_id, team, population)
 
 
 func _on_area_2d_mouse_entered():
 	mouse_hover_entered.emit(self)
+	# tween animation
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprite_container, "scale", Vector2(1.05, 1.05), 0.05)
 
 
 func _on_area_2d_mouse_exited():
 	mouse_hover_exited.emit()
+	# tween animation
+	var tween = get_tree().create_tween()
+	tween.tween_property(sprite_container, "scale", Vector2(1, 1), 0.05)
+
+
+func set_selected(state: bool) -> void:
+	var tween = get_tree().create_tween()
+	if state:
+		selection_ring.scale = Vector2(0, 0)
+		selection_ring.show()
+		tween.tween_property(selection_ring, "scale", Vector2(0.7, 0.7), 0.1)
+	else:
+		tween.tween_property(selection_ring, "scale", Vector2(0, 0), 0.1)
+		await tween.finished
+		selection_ring.hide()

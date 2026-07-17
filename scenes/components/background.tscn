@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bb3dbn763rw44"]
+
+[ext_resource type="Shader" uid="uid://cvd8vsqsjauhw" path="res://scripts/shaders/space_background.gdshader" id="1_nu086"]
+[ext_resource type="Script" uid="uid://dkax6vcmpi1eb" path="res://scenes/components/background.gd" id="2_5j7br"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aja5u"]
+shader = ExtResource("1_nu086")
+shader_parameter/bg_color = Color(0.02, 0.02, 0.06, 1)
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/small_star_amount = 0.0015
+shader_parameter/small_star_slow = 14.0
+shader_parameter/small_star_size = 1.0
+shader_parameter/nebula_scale = 0.002
+shader_parameter/nebula_strength = 0.3
+shader_parameter/nebula_parallax = 20.0
+shader_parameter/nebula_color_a = Vector3(0.2, 0.1, 0.4)
+shader_parameter/nebula_color_b = Vector3(0, 0.3, 0.5)
+shader_parameter/nebula_color_c = Vector3(0.95, 0.35, 0.65)
+shader_parameter/nebula_strength_a = 0.5
+shader_parameter/nebula_strength_b = 1.0
+shader_parameter/nebula_strength_c = 0.5
+
+[node name="Background" type="ColorRect" unique_id=1697019609]
+material = SubResource("ShaderMaterial_aja5u")
+offset_left = -3423.0
+offset_top = -3241.0
+offset_right = 3581.35
+offset_bottom = 2717.0
+script = ExtResource("2_5j7br")

@@ -6,11 +6,18 @@ const TEAM_COLORS: Dictionary[int, Color] = {
 	2: Color(0.297, 0.626, 0.326, 1.0),
 	3: Color(0.887, 0.287, 0.396, 1.0),
 	4: Color(0.243, 0.429, 0.795, 1.0),
-	5: Color(1.0, 1.0, 1.0, 1.0),
-	6: Color(1.0, 1.0, 1.0, 1.0)
+	5: Color(0.873, 0.38, 0.859, 1.0),
+	6: Color(0.733, 0.367, 0.055, 1.0)
 }
 
 enum UnitSendMode {PERCENT, AMOUNT}
+enum ActivationType {
+	INSTANT, 
+	TARGET_POSITION, 
+	TARGET_STRUCTURE, 
+	TARGET_UNIT, 
+	TARGET_AREA
+	}
 
 func get_team_color(team: int) -> Color:
 	return TEAM_COLORS.get(team, Color.WHITE)

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cjdp83ufxp3ff"]
+
+[ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/base_structure.tscn" id="1_vwsye"]
+[ext_resource type="Script" uid="uid://dndjnwabrjqwh" path="res://scenes/structures/growth_structure.gd" id="2_erim5"]
+
+[node name="GrowthStructure" unique_id=1956645682 instance=ExtResource("1_vwsye")]
+script = ExtResource("2_erim5")

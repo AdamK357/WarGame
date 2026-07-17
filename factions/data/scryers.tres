@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_yqwgq")
-id = 3
+name = "The Scryers"
+base_unit_speed = 500.0
 metadata/_custom_type_script = "uid://dtwjshcry8t3c"

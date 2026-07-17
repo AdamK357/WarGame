@@ -1,6 +1,6 @@
 extends Control
 
-@onready var amount_text_edit = $CanvasLayer/Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AmountTextEdit
+@onready var amount_text_edit = $Control/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/AmountTextEdit
 
 
 ## Sets the percentage of units to send (0.0 to 1.0)

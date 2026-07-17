@@ -7,7 +7,8 @@ class_name Unit
 @onready var sprite2d = $SpriteContainer/Sprite2D2
 
 var unit_id: int = -1
-var _team: int
+var team: int
+var source_structure: BaseStructure
 var target_structure: BaseStructure
 var target_position: Vector2
 
@@ -19,12 +20,6 @@ func _physics_process(delta: float) -> void:
 
 	_move_toward_target(delta)
 
-	if not MultiplayerManager.is_server_or_singleplayer():
-		return
-
-	if global_position.distance_to(target_position) < 10:
-		hit_structure()
-
 
 func _move_toward_target(delta: float) -> void:
 	var dir := (target_position - global_position).normalized()
@@ -34,27 +29,26 @@ func _move_toward_target(delta: float) -> void:
 func _update_texture() -> void:
 	if sprite2d == null:
 		await ready
-	sprite2d.modulate = Globals.get_team_color(_team)
-
-
-func hit_structure() -> void:
-	if target_structure == null:
-		queue_free()
+	
+	sprite2d.modulate = Globals.get_team_color(team)
+	
+	var faction_id: int = FactionManager.get_team_faction_id(team)
+	if faction_id == 0:
 		return
+	
+	var texture: Texture2D = FactionManager.get_base_faction_data(faction_id).unit_texture
+	if texture == null or texture == sprite2d.texture:
+		return
+	sprite2d.texture = texture
 
-	target_structure.apply_unit_hit(_team)
 
-	if MultiplayerManager.is_server_or_singleplayer():
-		MultiplayerManager.broadcast_unit_destroyed(unit_id, global_position)
-
-
-func set_team(team: int) -> void:
-	_team = team
+func set_team(_team: int) -> void:
+	team = _team
 	_update_texture()
 
 
 func get_team() -> int:
-	return _team
+	return team
 
 
 func set_target_structure(target: BaseStructure) -> void:
@@ -72,22 +66,42 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		return
 
 	var object = area.get_parent()
-	if object is Unit and object.get_team() != _team:
+	if object is Unit and object.get_team() != team:
 		_resolve_unit_collision(object)
+	if object is BaseStructure:
+		_resolve_structure_collision(object)
 
 
 func _resolve_unit_collision(other: Unit) -> void:
+	if not MultiplayerManager.is_server_or_singleplayer():
+		return
+	
 	if unit_id < other.unit_id:
 		return
 	die()
 	other.die()
 
 
+func _resolve_structure_collision(structure: BaseStructure) -> void:
+	if not MultiplayerManager.is_server_or_singleplayer():
+		return
+	
+	if structure == null:
+		queue_free()
+		return
+		
+	if structure != source_structure:
+		structure.apply_unit_hit(team)
+		die()
+
+
 func die() -> void:
-	if MultiplayerManager.is_server_or_singleplayer():
-		MultiplayerManager.broadcast_unit_destroyed(unit_id, global_position)
+	if not MultiplayerManager.is_server_or_singleplayer():
+		return
+	
+	UnitManager.broadcast_unit_destroyed(unit_id, global_position)
 
-
+# Runs locally
 func die_at_position(effect_pos: Vector2) -> void:
 	var effect = unit_collision_particles.instantiate()
 	effect.global_position = effect_pos
@@ -95,7 +109,7 @@ func die_at_position(effect_pos: Vector2) -> void:
 		GameManager.particle_container.add_child(effect)
 	_remove_self()
 
-
+# Runs locally
 func _remove_self() -> void:
 	if unit_id >= 0:
 		UnitManager.unregister_unit(unit_id)
