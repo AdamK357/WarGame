@@ -35,7 +35,7 @@ func _get_faction_from_input() -> int:
 
 
 func _on_host_button_pressed() -> void:
-	var error := MultiplayerManager.host_game(DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
+	var error = MultiplayerManager.host_game(DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
 	if error != OK:
 		_set_status("Failed to host on port %d" % DEFAULT_PORT)
 		return
@@ -47,7 +47,7 @@ func _on_join_button_pressed() -> void:
 	if address.is_empty():
 		address = "127.0.0.1"
 
-	var error := MultiplayerManager.join_game(address, DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
+	var error = MultiplayerManager.join_game(address, DEFAULT_PORT, _get_team_from_input(), _get_faction_from_input())
 	if error != OK:
 		_set_status("Failed to connect to %s:%d" % [address, DEFAULT_PORT])
 		return
