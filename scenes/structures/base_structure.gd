@@ -45,7 +45,7 @@ func _ready() -> void:
 	if not MultiplayerManager.is_server_or_singleplayer():
 		return
 	
-	if team != 0:
+	if team != 0 and can_grow:
 		growth_timer.start()
 
 
