@@ -12,7 +12,7 @@ func on_structure_captured(structure, state):
 	if structure.is_monolith:
 		state["monolith_points"] += 1
 
-func process_tick(delta, state):
+func process_tick(_delta, state):
 	# Example passive effect
 	if state["monolith_points"] > 10:
 		# unlock something, trigger something, etc

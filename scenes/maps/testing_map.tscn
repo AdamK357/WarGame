@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://1sjjrvp7k7uh"]
+
+[ext_resource type="PackedScene" uid="uid://bvktsxiu81e7g" path="res://scenes/maps/map.tscn" id="1_yv0ko"]
+
+[node name="TestingMap" unique_id=1160770166 instance=ExtResource("1_yv0ko")]
+
+[node name="GrowthStructure2" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="1" unique_id=792576276]
+team = 2
+
+[node name="GrowthStructure3" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="2" unique_id=1929023557]
+visible = false
+
+[node name="GrowthStructure4" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="3" unique_id=1403999106]
+visible = false
+
+[node name="GrowthStructure5" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="4" unique_id=877451963]
+visible = false
+
+[node name="GrowthStructure6" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="5" unique_id=1638524849]
+visible = false
+
+[node name="GrowthStructure7" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="6" unique_id=503884525]
+visible = false
+
+[node name="GrowthStructure8" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="7" unique_id=91155467]
+visible = false
+
+[node name="GrowthStructure9" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="8" unique_id=976592906]
+visible = false
+
+[node name="GrowthStructure10" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="9" unique_id=1665489563]
+visible = false
+
+[node name="GrowthStructure11" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="10" unique_id=295327685]
+visible = false
+
+[node name="GrowthStructure12" parent="StructureContainer" parent_id_path=PackedInt32Array(1690486104) index="11" unique_id=1637453950]
+visible = false

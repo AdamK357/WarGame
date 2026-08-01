@@ -26,12 +26,16 @@ camera = NodePath("../Camera")
 [node name="GrowthStructure" parent="StructureContainer" unique_id=1956645682 instance=ExtResource("3_elcdo")]
 position = Vector2(-787, -379)
 team = 1
+population = 100
 
 [node name="GrowthStructure2" parent="StructureContainer" unique_id=792576276 instance=ExtResource("3_elcdo")]
 position = Vector2(-332, -378)
 
 [node name="GrowthStructure3" parent="StructureContainer" unique_id=1929023557 instance=ExtResource("3_elcdo")]
 position = Vector2(-785, -6)
+team = 1
+population = 100
+growth_time = 0.5
 
 [node name="GrowthStructure4" parent="StructureContainer" unique_id=1403999106 instance=ExtResource("3_elcdo")]
 position = Vector2(-330, -5)
@@ -48,7 +52,6 @@ position = Vector2(356, -375)
 
 [node name="GrowthStructure8" parent="StructureContainer" unique_id=91155467 instance=ExtResource("3_elcdo")]
 position = Vector2(811, -374)
-team = 3
 
 [node name="GrowthStructure9" parent="StructureContainer" unique_id=976592906 instance=ExtResource("3_elcdo")]
 position = Vector2(358, -2)
@@ -61,7 +64,6 @@ position = Vector2(364, 358)
 
 [node name="GrowthStructure12" parent="StructureContainer" unique_id=1637453950 instance=ExtResource("3_elcdo")]
 position = Vector2(819, 359)
-team = 4
 
 [node name="AIControllers" type="Node" parent="." unique_id=360442435]
 

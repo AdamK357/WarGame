@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://0n8dxj1le61v"]
+
+[ext_resource type="Script" uid="uid://4apo4f12vvvo" path="res://autoload/debug_menu.gd" id="1_tq8au"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tq8au"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.972549)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="DebugMenu" type="Control" unique_id=745273012]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tq8au")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1420166287]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=1598234398]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tq8au")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer" unique_id=752374056]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=393625885]
+layout_mode = 2
+text = "Debug Data"

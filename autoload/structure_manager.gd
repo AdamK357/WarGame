@@ -27,11 +27,14 @@ func get_structure(structure_id: int) -> BaseStructure:
 
 func register_structure(structure: BaseStructure, structure_id: int) -> void:
 	_structures_by_id[structure_id] = structure
+	GameManager.register_structure_to_team(structure.get_team())
 	structure_registered.emit(structure_id)
 
 
 func unregister_structure(structure_id: int) -> void:
+	GameManager.remove_structure_from_team(get_structure(structure_id).get_team())
 	_structures_by_id.erase(structure_id)
+	
 
 
 func _spawn_structure_local(_req: StructureSpawnRequest) -> void:

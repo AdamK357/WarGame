@@ -115,12 +115,14 @@ func start_game(map_path: String) -> void:
 	else:
 		human_teams = [local_team_id]
 		peer_teams = {1: local_team_id}
+		GameManager.start_match()
 		FactionManager.register_team_faction(local_team_id, local_faction_id)
 		SceneManager.change_scene(map_path)
 
 
 @rpc("authority", "reliable", "call_local")
 func start_game_rpc(map_path: String) -> void:
+	GameManager.start_match()
 	get_tree().change_scene_to_file(map_path)
 
 

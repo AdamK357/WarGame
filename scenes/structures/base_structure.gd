@@ -176,17 +176,22 @@ func generate_arrival_position() -> Vector2:
 	return global_position + offset
 
 
-func apply_unit_hit(attacker_team: int) -> void:
-	if attacker_team == team:
+func apply_unit_hit(incoming_unit_team: int) -> void:
+	if incoming_unit_team == team:
 		population += 1
 		anim_player.play("hit")
 	else:
 		population -= 1
 		anim_player.play("hit")
 		if population <= 0:
-			set_team(attacker_team)
+			structure_captured(team, incoming_unit_team)
 
 	StructureManager.broadcast_structure_state(structure_id, team, population)
+
+
+func structure_captured(current_team: int, new_team: int):
+	GameManager.transfer_structure(current_team, new_team)
+	set_team(new_team)
 
 
 func _on_area_2d_mouse_entered():
