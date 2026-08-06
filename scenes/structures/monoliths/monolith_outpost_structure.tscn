@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c6snr2swv10p0"]
+
+[ext_resource type="PackedScene" uid="uid://b2o5dqye48dnl" path="res://scenes/structures/base_structure.tscn" id="1_l2ynt"]
+
+[node name="MonolithOutpostStructure" unique_id=1956645682 instance=ExtResource("1_l2ynt")]
+population = 0
+can_grow = false

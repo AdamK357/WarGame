@@ -1,6 +1,6 @@
 extends Control
 
-const MAP_PATH := "res://scenes/maps/map.tscn"
+const MAP_PATH := "res://scenes/maps/game_scene.tscn"
 const DEFAULT_PORT := 60865
 
 @onready var status_label: Label = $CenterContainer/VBoxContainer/StatusLabel

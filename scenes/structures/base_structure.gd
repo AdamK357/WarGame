@@ -23,35 +23,39 @@ const SPAWN_DELAY_SCALE := 0.001
 @onready var unit_scene: PackedScene = preload("res://scenes/units/unit.tscn")
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 
-@export var population: int = 10:
-	set(value):
-		population = value
-		_update_population_label()
-## Set to -1 to disable
-@export var max_population: int = -1
-## Should the population increase over time
-@export var can_grow: bool = true
-## Amount of time between population growths (seconds)
-@export var growth_time: float = 1
-## Amount added to population per growth
-@export var growth_amount: int = 1
+@export var structure_data: StructureData
+
+#@export var structure_data: StructureData
+#@export var population: int = 10:
+	#set(value):
+		#population = value
+		#_update_population_label()
+### Set to -1 to disable
+#@export var max_population: int = -1
+### Should the population increase over time
+#@export var can_grow: bool = true
+### Amount of time between population growths (seconds)
+#@export var growth_time: float = 1
+### Amount added to population per growth
+#@export var growth_amount: int = 1
 
 
 func _ready() -> void:
-	growth_timer.wait_time = growth_time
+	structure_data = structure_data.duplicate()
+	growth_timer.wait_time = structure_data.growth_time
 	_update_texture()
 	_update_population_label()
 	
 	if not MultiplayerManager.is_server_or_singleplayer():
 		return
 	
-	if team != 0 and can_grow:
+	if team != 0 and structure_data.can_grow:
 		growth_timer.start()
 
 
 func set_team(new_team: int) -> void:
 	if MultiplayerManager.is_server_or_singleplayer():
-		if team == 0 and can_grow and new_team != 0:
+		if team == 0 and structure_data.can_grow and new_team != 0:
 			growth_timer.start()
 	
 	team = new_team
@@ -60,6 +64,13 @@ func set_team(new_team: int) -> void:
 
 func get_team() -> int:
 	return team
+
+func set_population(new_population) -> void:
+	structure_data.population = new_population
+	_update_population_label()
+
+func get_population() -> int:
+	return structure_data.population
 
 
 ## Will not work if structure is not added to scene yet.
@@ -71,7 +82,7 @@ func _update_texture() -> void:
 	if faction_id == 0:
 		return
 	
-	if self is GrowthStructure:
+	if self is BasicGrowthStructure:
 		var texture: Texture2D = FactionManager.get_base_faction_data(faction_id).structure_texture
 		if texture == null or texture == sprite2d.texture:
 			return
@@ -83,16 +94,16 @@ func _on_growth_timer_timeout() -> void:
 		return
 	
 	var new_population
-	if max_population < 0:
-		new_population = population + growth_amount
+	if structure_data.max_population < 0:
+		new_population = structure_data.population + structure_data.growth_amount
 	else:
-		new_population = clampi(population + growth_amount, 0, max_population)
+		new_population = clampi(structure_data.population + structure_data.growth_amount, 0, structure_data.max_population)
 	
-	if new_population == population:
+	if new_population == structure_data.population:
 		return
 
-	population = new_population # authoritative update to the population. population label is updated using apply_network_state() through broadcast_structure_state()
-	StructureManager.broadcast_structure_state(structure_id, team, population)
+	set_population(new_population) # authoritative update to the population. population label is updated using apply_network_state() through broadcast_structure_state()
+	StructureManager.broadcast_structure_state(structure_id, team, structure_data.population)
 
 
 
@@ -100,14 +111,14 @@ func _on_growth_timer_timeout() -> void:
 
 func apply_network_state(_team: int, new_population: int) -> void: # this is a replication function who's job is to simply update the clients with the server's information/state. Singleplayer still uses this function just to update the visual state, but does not use it as an authoritative function.
 	team = _team
-	population = new_population
+	structure_data.population = new_population
 	_update_texture()
 	_update_population_label()
 
 
 func _update_population_label() -> void:
 	if population_label != null:
-		population_label.text = str(population)
+		population_label.text = str(structure_data.population)
 
 func send_units(request: UnitSendRequest) -> void:
 	if not MultiplayerManager.is_server_or_singleplayer():
@@ -117,8 +128,8 @@ func send_units(request: UnitSendRequest) -> void:
 	if amount_to_send <= 0:
 		return
 	
-	population -= amount_to_send
-	StructureManager.broadcast_structure_state(structure_id, team, population)
+	structure_data.population -= amount_to_send
+	StructureManager.broadcast_structure_state(structure_id, team, structure_data.population)
 
 	# Stagger unit spawning for visual effect - delay increases with quantity
 	var delay := clampf(SPAWN_DELAY_MAX - amount_to_send * SPAWN_DELAY_SCALE, SPAWN_DELAY_MIN, SPAWN_DELAY_MAX)
@@ -138,12 +149,12 @@ func _calculate_send_amount(request: UnitSendRequest) -> int:
 		# If you treat p as 0–100, convert to 0–1:
 		if p > 1.0:
 			p /= 100.0
-		result = int(round(population * p))
+		result = int(round(structure_data.population * p))
 	else:
 		result = int(request.amount)
 
 	# Clamp to valid range
-	result = clampi(result, 0, population)
+	result = clampi(result, 0, structure_data.population)
 	return result
 
 
@@ -178,15 +189,15 @@ func generate_arrival_position() -> Vector2:
 
 func apply_unit_hit(incoming_unit_team: int) -> void:
 	if incoming_unit_team == team:
-		population += 1
+		set_population(structure_data.population + 1)
 		anim_player.play("hit")
 	else:
-		population -= 1
+		set_population(structure_data.population - 1)
 		anim_player.play("hit")
-		if population <= 0:
+		if structure_data.population <= 0:
 			structure_captured(team, incoming_unit_team)
 
-	StructureManager.broadcast_structure_state(structure_id, team, population)
+	StructureManager.broadcast_structure_state(structure_id, team, structure_data.population)
 
 
 func structure_captured(current_team: int, new_team: int):

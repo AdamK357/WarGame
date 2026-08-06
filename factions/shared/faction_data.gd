@@ -13,3 +13,4 @@ class_name FactionData
 @export var ability_resources: Array[Resource]
 @export var passive_resources: Array[Resource]
 @export var logic_module: FactionLogic
+@export var faction_ui: Resource

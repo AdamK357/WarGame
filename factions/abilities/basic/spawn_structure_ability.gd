@@ -2,7 +2,7 @@ extends FactionAbility
 class_name SpawnStructureAbility
 
 
-@export var structure_path: String = "res://scenes/structures/base_structure.tscn"
+@export var structure_path: String = "res://scenes/structures/basic_outpost_structure.gd"
 
 
 func execute(fa_req: FactionAbilityRequest):

@@ -26,6 +26,7 @@ UnitManager="*uid://ckp88f4m2kfy4"
 AbilityManager="*uid://6el3dqajwuua"
 SceneManager="*uid://bmwsg1pr2vc5v"
 DebugMenu="*uid://0n8dxj1le61v"
+SignalBus="*uid://p7w3lom5ayoy"
 
 [display]
 

@@ -64,7 +64,7 @@ func _choose_target(source: BaseStructure) -> BaseStructure:
 	if randf() < defensiveness:
 		var weak := _find_weak_friendly_structure()
 		if weak and weak != source:
-			if source.population > vulnerability_threshold:
+			if source.get_population() > vulnerability_threshold:
 				if source.global_position.distance_to(weak.global_position) < 500:
 					return weak
 
@@ -73,8 +73,8 @@ func _choose_target(source: BaseStructure) -> BaseStructure:
 
 	candidates.sort_custom(
 		func(a, b):
-			var score_a = a.population * 2 + source.global_position.distance_to(a.global_position)
-			var score_b = b.population * 2 + source.global_position.distance_to(b.global_position)
+			var score_a = a.get_population() * 2 + source.global_position.distance_to(a.global_position)
+			var score_b = b.get_population() * 2 + source.global_position.distance_to(b.global_position)
 			return score_a < score_b
 	)
 
@@ -82,8 +82,8 @@ func _choose_target(source: BaseStructure) -> BaseStructure:
 
 
 func _maybe_attack(source: BaseStructure, target: BaseStructure) -> void:
-	var source_pop := source.population
-	var target_pop := target.population
+	var source_pop := source.get_population()
+	var target_pop := target.get_population()
 
 	var advantage := float(source_pop) / maxf(1.0, target_pop)
 	if advantage < caution:
@@ -104,10 +104,10 @@ func _find_weak_friendly_structure() -> BaseStructure:
 	if my_structures.is_empty():
 		return null
 
-	my_structures.sort_custom(func(a, b): return a.population < b.population)
+	my_structures.sort_custom(func(a, b): return a.get_population() < b.get_population())
 
 	var weakest: BaseStructure = my_structures[0]
-	if weakest.population < vulnerability_threshold:
+	if weakest.get_population() < vulnerability_threshold:
 		return weakest
 
 	return null

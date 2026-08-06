@@ -1,0 +1,2 @@
+extends BaseStructure
+class_name BasicOutpostStructure

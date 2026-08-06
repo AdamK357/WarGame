@@ -1,2 +1,0 @@
-extends BaseStructure
-class_name OutpostStructure

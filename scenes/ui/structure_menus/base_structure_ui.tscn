@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cf174rkkv7j4"]
+
+[ext_resource type="Script" uid="uid://b0pcf6tl5wqsr" path="res://scenes/ui/structure_menus/base_structure_ui.gd" id="1_nb40w"]
+
+[node name="BaseStructureUI" type="Control" unique_id=1096705376]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_nb40w")

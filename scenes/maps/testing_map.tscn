@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1sjjrvp7k7uh"]
 
-[ext_resource type="PackedScene" uid="uid://bvktsxiu81e7g" path="res://scenes/maps/map.tscn" id="1_yv0ko"]
+[ext_resource type="PackedScene" uid="uid://bvktsxiu81e7g" path="res://scenes/maps/game_scene.tscn" id="1_yv0ko"]
 
 [node name="TestingMap" unique_id=1160770166 instance=ExtResource("1_yv0ko")]
 

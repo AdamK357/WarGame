@@ -35,4 +35,4 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer" unique_id=393625885]
 layout_mode = 2
-text = "Debug Data"
+text = "Server Debug Data"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpawnStructureAbility" format=3 uid="uid://dxw2f5gnccx0x"]
+
+[ext_resource type="Script" uid="uid://cwrsqcqo54xms" path="res://factions/abilities/basic/spawn_structure_ability.gd" id="1_i7q35"]
+
+[resource]
+script = ExtResource("1_i7q35")
+structure_path = "res://scenes/structures/monoliths/monolith_forge_structure.tscn"
+activation_type = 1
+metadata/_custom_type_script = "uid://cwrsqcqo54xms"

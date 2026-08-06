@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="StructureData" format=3 uid="uid://imip26v3rtkx"]
+
+[ext_resource type="Script" uid="uid://d2lbpkipqrqkh" path="res://scenes/structures/structure_data.gd" id="1_206s2"]
+
+[resource]
+script = ExtResource("1_206s2")
+metadata/_custom_type_script = "uid://d2lbpkipqrqkh"

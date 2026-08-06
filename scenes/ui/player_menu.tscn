@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b8k34tir38vjy" path="res://scenes/ui/player_menu.gd" id="1_nfetk"]
 [ext_resource type="PackedScene" uid="uid://c8f7pm6kvkkbj" path="res://scenes/ui/monolith_faction_ui.tscn" id="2_gshpo"]
 
-[node name="PlayerMenu" type="Control" unique_id=489993954 node_paths=PackedStringArray("faction_ui")]
+[node name="PlayerMenu" type="Control" unique_id=489993954]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_nfetk")
-faction_ui = NodePath("TabContainer/Faction/MonolithFactionUI")
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=2009282128]
 layout_mode = 1
@@ -24,14 +23,13 @@ offset_top = -405.0
 offset_right = 978.0
 grow_vertical = 0
 theme = ExtResource("1_2rx5c")
-current_tab = 1
+current_tab = 0
 
-[node name="Structure" type="Control" parent="TabContainer" unique_id=1286814780]
-visible = false
+[node name="StructureMenu" type="Control" parent="TabContainer" unique_id=1286814780]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Structure" unique_id=1901009504]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/StructureMenu" unique_id=1901009504]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -39,23 +37,58 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="TabContainer/Structure/MarginContainer" unique_id=1585292194]
-layout_mode = 2
-text = "testing testing"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Structure/MarginContainer" unique_id=2037291809]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/StructureMenu/MarginContainer" unique_id=2037291809]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Structure/MarginContainer/HBoxContainer" unique_id=2020610149]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer" unique_id=2020610149]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/Structure/MarginContainer/HBoxContainer/VBoxContainer" unique_id=169780061]
+[node name="Label" type="Label" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=169780061]
 layout_mode = 2
 text = "Population: 0"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer" unique_id=592428152]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=1648321344]
+layout_mode = 2
+text = "Percentage to send:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer" unique_id=2049778197]
+layout_mode = 2
+
+[node name="PercentButton1" type="Button" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1677590314]
+layout_mode = 2
+text = "25%"
+
+[node name="PercentButton2" type="Button" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=647646407]
+layout_mode = 2
+text = "50%"
+
+[node name="PercentButton3" type="Button" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1655943231]
+layout_mode = 2
+text = "75%"
+
+[node name="PercentButton4" type="Button" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1369912929]
+layout_mode = 2
+text = "100%"
+
+[node name="AmountTextEdit" type="TextEdit" parent="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1113223910]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "10"
+placeholder_text = "Qty."
+
 [node name="Faction" type="Control" parent="TabContainer" unique_id=1690387667]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="MonolithFactionUI" parent="TabContainer/Faction" unique_id=1358577425 instance=ExtResource("2_gshpo")]
 layout_mode = 1
+
+[connection signal="pressed" from="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/PercentButton1" to="." method="_on_percent_button_1_pressed"]
+[connection signal="pressed" from="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/PercentButton2" to="." method="_on_percent_button_2_pressed"]
+[connection signal="pressed" from="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/PercentButton3" to="." method="_on_percent_button_3_pressed"]
+[connection signal="pressed" from="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/PercentButton4" to="." method="_on_percent_button_4_pressed"]
+[connection signal="text_set" from="TabContainer/StructureMenu/MarginContainer/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/AmountTextEdit" to="." method="_on_amount_text_edit_text_set"]

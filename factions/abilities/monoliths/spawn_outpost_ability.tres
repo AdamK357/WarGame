@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="SpawnOutpostAbility" format=3 uid="uid://bdj7247bbhyi4"]
+[gd_resource type="Resource" script_class="SpawnStructureAbility" format=3 uid="uid://bdj7247bbhyi4"]
 
-[ext_resource type="Script" uid="uid://ev2obe5l5f3b" path="res://factions/abilities/monoliths/spawn_outpost_ability.gd" id="1_uasgs"]
+[ext_resource type="Script" uid="uid://cwrsqcqo54xms" path="res://factions/abilities/basic/spawn_structure_ability.gd" id="1_uasgs"]
 
 [resource]
 script = ExtResource("1_uasgs")
-structure_path = "res://scenes/structures/outpost_structure.tscn"
-ability_name = "Build Outpost"
+structure_path = "res://scenes/structures/basic/basic_outpost_structure.tscn"
 activation_type = 1
-metadata/_custom_type_script = "uid://ev2obe5l5f3b"
+metadata/_custom_type_script = "uid://cwrsqcqo54xms"

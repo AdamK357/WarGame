@@ -1,2 +1,0 @@
-extends SpawnStructureAbility
-class_name SpawnForgeAbility

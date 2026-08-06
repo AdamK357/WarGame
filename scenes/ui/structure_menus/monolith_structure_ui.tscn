@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cdi8wkuak01a8"]
+
+[ext_resource type="PackedScene" uid="uid://cf174rkkv7j4" path="res://scenes/ui/structure_menus/base_structure_ui.tscn" id="1_jjxho"]
+
+[node name="MonolithStructureUI" unique_id=1096705376 instance=ExtResource("1_jjxho")]

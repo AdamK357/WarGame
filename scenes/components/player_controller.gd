@@ -3,22 +3,20 @@ class_name PlayerController
 
 @onready var targeting_arrow: PackedScene = preload("res://scenes/ui/targeting_arrow.tscn")
 var current_arrow: Node2D
+# set by the GameScene
+@export var player_menu: PlayerMenu
 
-@export var team: int = -1
+static var instance: PlayerController = self
+
 var faction_data_instance: FactionData
-static var instance: PlayerController = null
-
+@export var team: int = -1
+enum InteractionMode {NONE, SELECT_POSITION, SELECT_STRUCTURE, SELECT_UNIT}
+var interaction_mode: InteractionMode = InteractionMode.NONE
 var selected_position: Vector2 = Vector2.ZERO
 var selected_source: BaseStructure = null
 var hovered_structure: BaseStructure = null
-
 var is_choosing_target: bool = false
-
-enum InteractionMode {NONE, CHOOSE_POSITION, CHOOSE_STRUCTURE, CHOOSE_UNIT}
-var interaction_mode: InteractionMode = InteractionMode.NONE
-
 var current_ability_index: int = 0
-
 var unit_send_mode: Globals.UnitSendMode = Globals.UnitSendMode.PERCENT
 var send_value: float = 0.5
 
@@ -65,9 +63,11 @@ func retrieve_faction_data_instance():
 func connect_to_signals():
 	StructureManager.structure_registered.connect(connect_structure_signals)
 	initial_connect_structure_signals()
-	var player_menu: PlayerMenu = get_tree().get_root().get_node("/root/Map/UI/PlayerMenu")
+	
 	if player_menu:
 		player_menu.connect("ability_pressed", _handle_ability_pressed)
+	else:
+		Globals.send_error("No PlayerMenu")
 
 # Connects to a structure's signals using the structure ID to get a reference to the structure.
 # Requires StructureManager._structures_by_id to already contain the structure and structure id.
@@ -113,13 +113,14 @@ func _handle_left_click():
 					selected_source = structure
 					selected_source.set_selected(true)
 					is_choosing_target = true
+					player_menu.update_structure_ui(structure.structure_data)
 				else:
 					_send_from_selected_to(structure)
 			else:
 				# Clicked enemy/other team
 				if selected_source != null:
 					_send_from_selected_to(structure)
-		InteractionMode.CHOOSE_POSITION:
+		InteractionMode.SELECT_POSITION:
 			selected_position = get_global_mouse_position()
 			_submit_ability_request()
 
@@ -169,11 +170,11 @@ func _handle_ability_pressed(index: int) -> void:
 		Globals.ActivationType.INSTANT:
 			interaction_mode = InteractionMode.NONE
 		Globals.ActivationType.TARGET_POSITION:
-			interaction_mode = InteractionMode.CHOOSE_POSITION
+			interaction_mode = InteractionMode.SELECT_POSITION
 		Globals.ActivationType.TARGET_STRUCTURE:
-			interaction_mode = InteractionMode.CHOOSE_STRUCTURE
+			interaction_mode = InteractionMode.SELECT_STRUCTURE
 		Globals.ActivationType.TARGET_UNIT:
-			interaction_mode = InteractionMode.CHOOSE_UNIT
+			interaction_mode = InteractionMode.SELECT_UNIT
 		Globals.ActivationType.TARGET_AREA:
 			pass
 
